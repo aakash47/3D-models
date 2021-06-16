@@ -5,7 +5,7 @@
 </template>
 
 <script>
-import Iframe from './components/Iframe.vue'
+import Iframe from './components/SketchFabApi.vue'
 
 export default {
   name: 'App',

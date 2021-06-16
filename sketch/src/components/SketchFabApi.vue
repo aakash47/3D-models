@@ -10,55 +10,33 @@
 </div>
 </template>
 <script>
+import axios from 'axios'
 export default {
     name:"Iframe",
     data(){
         return {
             searchs:"",
-            models:
-            {
-                tajmahal:'ikI3rGTwIf9xdRrcEgxTxEywGH3',
-                apple:'7306582923d5481bab4dd8844051e502',
-                albert:'3f9b2934b4ee44969b29cce2ce46e13f',
-                bob:'7w7pAfrCfjovwykkEeRFLGw5SXS',
-                ironman:'d87547f21f904cfa954f4cf77a1409ac',
-                london:'a7497c33ce4c493696fdd40ec0437301',
-                india:'c86b16b141e54d2d844b740941bedb0c',
-                bike:'446d2f54cf6346a89afa9a9578c4c9cd',
-                charterhouse:'21b7cc89dd0c4c0487575f8af4dc7713',
-                goku:'35edf16494e74f5d9c96f3d11c476162',
-                rajinikanth:'584a0230ff184ffabc20af0e7fe3deb4',
-                america:'9f91319b16f14de780d444422eff63ad',
-                newyork:'271e4593fa9d43a7820aa3539d7d15e4',
-                rain:'7036afaa134c464a9e8a2dbd46f9919d',
-            },
-            uid:"",
         }},
         methods:{
-            search(){
-            let i=0;
+            async search(){
+            const access_token='dbff16df1bb54ba2b45b7b921fe7dab8'
 
-            for (i in this.models){
-                if(i==this.searchs)
-                {
-                    this.uid=this.models[i]
-                }
-                
-            }
+                const {data} = await axios.get(`https://api.sketchfab.com/v3/search?type=models&q=%20${this.searchs}`, {
+            headers: {
+            'Authorization': `token ${access_token}`
+            }})
+            console.log(data.results);
+
+            console.log(data.results[0].uid);
+            this.skr=data.results[0].uid;
         var iframe = document.getElementById( 'api-frame' );
-        // var uid = '7w7pAfrCfjovwykkEeRFLGw5SXS';
         var client = new window.Sketchfab( iframe );
         console.log(iframe)
-        client.init( this.uid, {
+        client.init( this.skr, {
         success: function onSuccess( api ){
-            api.start(
-                
-
-                
-            );
+            api.start();
             api.addEventListener( 'viewerready', function() {
                 console.log( 'Viewer is ready' );
-
             } );
         },
         error: function onError() {
@@ -66,8 +44,7 @@ export default {
         }
     } );
         }   
-}
-            
+}            
         }    
 </script>
 
