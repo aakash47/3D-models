@@ -19,7 +19,7 @@ export default {
         }},
         methods:{
             async search(){
-            const access_token='dbff16df1bb54ba2b45b7b921fe7dab8'
+            const access_token=''
 
                 const {data} = await axios.get(`https://api.sketchfab.com/v3/search?type=models&q=%20${this.searchs}`, {
             headers: {
